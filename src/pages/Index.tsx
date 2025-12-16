@@ -100,11 +100,13 @@ const Index = () => {
                 "Entregar SQL limpo e bem classificado",
                 "Fazer follow-ups humanos, estratégicos e emocionais",
                 "Acompanhar Cliente Parcial (até 21 dias)",
-                "Acompanhar fase inicial de Documentos (até 3 meses)",
+                "Cobrar e garantir envio da documentação inicial",
+                "Acompanhar fase de Documentos (até 3 meses)",
               ]}
               notResponsible={[
                 "Acompanhar lead congelado por longo prazo",
                 "Fazer gestão de aprovação",
+                "Relacionamento pós-documentação",
               ]}
               channels={["Ligação", "WhatsApp"]}
               kpis={[
@@ -112,6 +114,7 @@ const Index = () => {
                 "Taxa de conexão: ≥ 30%",
                 "% de leads que viram reunião",
                 "CRM 100% atualizado",
+                "% de documentação enviada",
               ]}
             />
 
@@ -120,7 +123,7 @@ const Index = () => {
               variant="cs"
               name="CS"
               role="Customer Success / Conversão"
-              subtitle="Conversão Real"
+              subtitle="Relacionamento & Aprovação"
               icon={<Users className="w-6 h-6 text-cs" />}
               reportTo="Filipe"
               delay={400}
@@ -129,19 +132,21 @@ const Index = () => {
                 commission: "R$ 100–150 por venda",
               }}
               responsibilities={[
-                "Garantir envio e aprovação da documentação",
-                "Fazer follow-up ativo da documentação",
-                "Acompanhar grupos com loan officers",
+                "Relacionamento pós-documentação com o cliente",
+                "Acompanhar e garantir aprovação da documentação",
+                "Acompanhar loan officers parceiros",
                 "Comunicar-se com secretarias / loan officers",
-                "Assegurar cumprimento de marcos e prazos",
+                "Assegurar cumprimento de marcos e prazos do processo",
                 "Levar o cliente até a pré-aprovação",
+                "Reunião com Filipe quando lead está em grupo com corretor",
               ]}
               channels={["Chat", "Calls de follow-up"]}
               kpis={[
-                "% de clientes que completam documentação",
+                "% de documentação aprovada",
                 "Taxa de reativação (20–30% é excelente)",
                 "Conversão para pré-aprovação (10–20%)",
-                "Tempo médio para completar documentação",
+                "Tempo médio para aprovação",
+                "Cumprimento de marcos e prazos",
               ]}
               requirements={["Inglês fluente – sem exceção, sem negociação"]}
             />

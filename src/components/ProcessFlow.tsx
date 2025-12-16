@@ -21,14 +21,20 @@ const steps = [
   },
   {
     icon: FileText,
-    title: "Documentos",
+    title: "Documentação",
+    description: "SDR cobra docs",
+    color: "sdr",
+  },
+  {
+    icon: UserCheck,
+    title: "Pós-Doc",
     description: "CS assume",
     color: "cs",
   },
   {
     icon: CheckCircle2,
-    title: "Pré-aprovação",
-    description: "Doc. aprovada",
+    title: "Aprovação",
+    description: "CS + Loan Officers",
     color: "cs",
   },
   {
