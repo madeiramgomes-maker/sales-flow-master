@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, DollarSign, Target, MessageSquare, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 interface OrgCardProps {
@@ -12,6 +12,13 @@ interface OrgCardProps {
   notResponsible?: string[];
   reportTo?: string;
   delay?: number;
+  remuneration?: {
+    fixed: string;
+    commission: string;
+  };
+  kpis?: string[];
+  channels?: string[];
+  requirements?: string[];
 }
 
 const variantStyles = {
@@ -23,6 +30,8 @@ const variantStyles = {
     heading: "text-primary-foreground",
     bullet: "bg-primary-foreground/60",
     expandBtn: "text-primary-foreground/80 hover:text-primary-foreground",
+    sectionBorder: "border-primary-foreground/20",
+    sectionTitle: "text-primary-foreground/70",
   },
   sdr: {
     card: "org-card org-card-sdr",
@@ -32,6 +41,8 @@ const variantStyles = {
     heading: "text-foreground",
     bullet: "bg-sdr",
     expandBtn: "text-muted-foreground hover:text-foreground",
+    sectionBorder: "border-border",
+    sectionTitle: "text-muted-foreground",
   },
   cs: {
     card: "org-card org-card-cs",
@@ -41,6 +52,8 @@ const variantStyles = {
     heading: "text-foreground",
     bullet: "bg-cs",
     expandBtn: "text-muted-foreground hover:text-foreground",
+    sectionBorder: "border-border",
+    sectionTitle: "text-muted-foreground",
   },
 };
 
@@ -54,6 +67,10 @@ export function OrgCard({
   notResponsible,
   reportTo,
   delay = 0,
+  remuneration,
+  kpis,
+  channels,
+  requirements,
 }: OrgCardProps) {
   const [expanded, setExpanded] = useState(false);
   const styles = variantStyles[variant];
@@ -88,8 +105,29 @@ export function OrgCard({
         </p>
       )}
 
+      {/* Remuneration */}
+      {remuneration && (
+        <div className={`mb-4 p-3 rounded-lg ${variant === "leader" ? "bg-primary-foreground/10" : "bg-muted/50"}`}>
+          <div className="flex items-center gap-2 mb-2">
+            <DollarSign className={`w-4 h-4 ${variant === "leader" ? "text-primary-foreground/70" : "text-foreground/70"}`} />
+            <span className={`text-xs font-semibold uppercase tracking-wide ${styles.sectionTitle}`}>
+              Remuneração
+            </span>
+          </div>
+          <p className={`text-sm ${styles.text}`}>
+            <span className="font-semibold">Fixo:</span> {remuneration.fixed}
+          </p>
+          <p className={`text-sm ${styles.text}`}>
+            <span className="font-semibold">Comissão:</span> {remuneration.commission}
+          </p>
+        </div>
+      )}
+
       {/* Responsibilities Preview */}
       <div className="space-y-2 mb-4">
+        <p className={`text-xs font-semibold uppercase tracking-wide ${styles.sectionTitle}`}>
+          Responsabilidades
+        </p>
         {responsibilities.slice(0, expanded ? responsibilities.length : 3).map((item, index) => (
           <div key={index} className="flex items-start gap-2">
             <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${styles.bullet}`} />
@@ -98,41 +136,93 @@ export function OrgCard({
         ))}
       </div>
 
-      {/* Not Responsible */}
-      {expanded && notResponsible && notResponsible.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-primary-foreground/10">
-          <p className={`text-xs font-semibold uppercase tracking-wide mb-2 ${variant === "leader" ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-            Não é responsável por:
-          </p>
-          <div className="space-y-1">
-            {notResponsible.map((item, index) => (
-              <p key={index} className={`text-sm ${styles.text} opacity-70`}>
-                • {item}
+      {/* Expanded Content */}
+      {expanded && (
+        <>
+          {/* Channels */}
+          {channels && channels.length > 0 && (
+            <div className={`mt-4 pt-4 border-t ${styles.sectionBorder}`}>
+              <div className="flex items-center gap-2 mb-2">
+                <MessageSquare className={`w-4 h-4 ${variant === "leader" ? "text-primary-foreground/70" : "text-foreground/70"}`} />
+                <span className={`text-xs font-semibold uppercase tracking-wide ${styles.sectionTitle}`}>
+                  Canais de Comunicação
+                </span>
+              </div>
+              <p className={`text-sm ${styles.text}`}>{channels.join(", ")}</p>
+            </div>
+          )}
+
+          {/* KPIs */}
+          {kpis && kpis.length > 0 && (
+            <div className={`mt-4 pt-4 border-t ${styles.sectionBorder}`}>
+              <div className="flex items-center gap-2 mb-2">
+                <Target className={`w-4 h-4 ${variant === "leader" ? "text-primary-foreground/70" : "text-foreground/70"}`} />
+                <span className={`text-xs font-semibold uppercase tracking-wide ${styles.sectionTitle}`}>
+                  KPIs
+                </span>
+              </div>
+              <div className="space-y-1">
+                {kpis.map((kpi, index) => (
+                  <p key={index} className={`text-sm ${styles.text}`}>• {kpi}</p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Requirements */}
+          {requirements && requirements.length > 0 && (
+            <div className={`mt-4 pt-4 border-t ${styles.sectionBorder}`}>
+              <div className="flex items-center gap-2 mb-2">
+                <AlertCircle className={`w-4 h-4 ${variant === "cs" ? "text-cs" : variant === "sdr" ? "text-sdr" : "text-primary-foreground/70"}`} />
+                <span className={`text-xs font-semibold uppercase tracking-wide ${variant === "cs" ? "text-cs" : variant === "sdr" ? "text-sdr" : styles.sectionTitle}`}>
+                  Requisitos Obrigatórios
+                </span>
+              </div>
+              <div className="space-y-1">
+                {requirements.map((req, index) => (
+                  <p key={index} className={`text-sm font-medium ${variant === "cs" ? "text-cs" : variant === "sdr" ? "text-sdr" : styles.text}`}>
+                    ⚠️ {req}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Not Responsible */}
+          {notResponsible && notResponsible.length > 0 && (
+            <div className={`mt-4 pt-4 border-t ${styles.sectionBorder}`}>
+              <p className={`text-xs font-semibold uppercase tracking-wide mb-2 ${styles.sectionTitle}`}>
+                Não é responsável por
               </p>
-            ))}
-          </div>
-        </div>
+              <div className="space-y-1">
+                {notResponsible.map((item, index) => (
+                  <p key={index} className={`text-sm ${styles.text} opacity-70`}>
+                    • {item}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       {/* Expand Button */}
-      {responsibilities.length > 3 && (
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className={`flex items-center gap-1 text-sm font-medium mt-4 transition-colors ${styles.expandBtn}`}
-        >
-          {expanded ? (
-            <>
-              <ChevronUp className="w-4 h-4" />
-              Ver menos
-            </>
-          ) : (
-            <>
-              <ChevronDown className="w-4 h-4" />
-              Ver mais ({responsibilities.length - 3}+)
-            </>
-          )}
-        </button>
-      )}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className={`flex items-center gap-1 text-sm font-medium mt-4 transition-colors ${styles.expandBtn}`}
+      >
+        {expanded ? (
+          <>
+            <ChevronUp className="w-4 h-4" />
+            Ver menos
+          </>
+        ) : (
+          <>
+            <ChevronDown className="w-4 h-4" />
+            Ver detalhes completos
+          </>
+        )}
+      </button>
     </div>
   );
 }

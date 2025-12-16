@@ -1,6 +1,8 @@
 import { Crown, Headphones, Users, Building2 } from "lucide-react";
 import { OrgCard } from "@/components/OrgCard";
 import { ProcessFlow } from "@/components/ProcessFlow";
+import { VisionSection } from "@/components/VisionSection";
+import { StructureSection } from "@/components/StructureSection";
 
 const Index = () => {
   return (
@@ -23,8 +25,18 @@ const Index = () => {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-12">
+        {/* Vision Section */}
+        <VisionSection />
+
+        {/* Structure Section */}
+        <StructureSection />
+
         {/* Org Chart */}
         <section className="mb-20 relative">
+          <h2 className="font-display text-2xl font-bold text-foreground mb-8 text-center">
+            Organograma
+          </h2>
+
           {/* Leader Card - Centered */}
           <div className="flex justify-center mb-8">
             <div className="w-full max-w-md">
@@ -76,6 +88,10 @@ const Index = () => {
               icon={<Headphones className="w-6 h-6 text-sdr" />}
               reportTo="Filipe"
               delay={200}
+              remuneration={{
+                fixed: "R$ 2.000",
+                commission: "R$ 300 por venda",
+              }}
               responsibilities={[
                 "Executar 100% da cadência de New Lead",
                 "Contatar leads em até 5 minutos",
@@ -90,6 +106,13 @@ const Index = () => {
                 "Acompanhar lead congelado por longo prazo",
                 "Fazer gestão de aprovação",
               ]}
+              channels={["Ligação", "WhatsApp"]}
+              kpis={[
+                "Tempo médio de resposta: ≤ 5 minutos",
+                "Taxa de conexão: ≥ 30%",
+                "% de leads que viram reunião",
+                "CRM 100% atualizado",
+              ]}
             />
 
             {/* CS Card */}
@@ -101,6 +124,10 @@ const Index = () => {
               icon={<Users className="w-6 h-6 text-cs" />}
               reportTo="Filipe"
               delay={400}
+              remuneration={{
+                fixed: "R$ 2.800",
+                commission: "R$ 100–150 por venda",
+              }}
               responsibilities={[
                 "Garantir envio e aprovação da documentação",
                 "Fazer follow-up ativo da documentação",
@@ -108,11 +135,15 @@ const Index = () => {
                 "Comunicar-se com secretarias / loan officers",
                 "Assegurar cumprimento de marcos e prazos",
                 "Levar o cliente até a pré-aprovação",
-                "Chat e calls de follow-up",
               ]}
-              notResponsible={[
-                "Requisito Obrigatório: Inglês fluente",
+              channels={["Chat", "Calls de follow-up"]}
+              kpis={[
+                "% de clientes que completam documentação",
+                "Taxa de reativação (20–30% é excelente)",
+                "Conversão para pré-aprovação (10–20%)",
+                "Tempo médio para completar documentação",
               ]}
+              requirements={["Inglês fluente – sem exceção, sem negociação"]}
             />
           </div>
         </section>
